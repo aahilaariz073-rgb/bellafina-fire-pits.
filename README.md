@@ -14,7 +14,8 @@ index.html      the whole page — content, nav, forms, JSON-LD
 assets/
   site.css      all styles
   site.js       lazy split-section video, UTM passthrough, hero lead form, quote popup
-  logo.webp     brand logo and favicons
+  logo.png      current brand wordmark (navy/gold crest)
+  favicon-*.png  brand crest icons
   fire-pit-loop.mp4    split-section loop, gas fire pits
   fire-table-loop.mp4  split-section loop, fire tables
   hero-fire-table.jpg  hero photograph (1500x1001)
@@ -42,7 +43,7 @@ Production deploys from `main`. Every push redeploys automatically.
 It does not link to the other BellaFina landing sites (fire bowls, outdoor kitchens and pizza ovens).
 The header nav is on-page anchors only:
 
-`#top` Fire Pits · `#types` Types · `#tables` Fire Tables · `#who` Homeowners & Pros · `#areas` Service Area · `#faq` FAQ
+`#types` Explore · `#tables` Fire Tables · `#why` Why BellaFina · `#showroom` Design Center · `#faq` FAQ · `#trade` For Trade
 
 Every outbound link goes to **bellafinaoutdoors.com**, deep-linked to the matching
 page rather than the homepage, and carries UTM tags:
@@ -69,11 +70,46 @@ directly. Set the webhook URL to capture leads without the extra step.
 The popup opens by itself 5 seconds after load, once per session, and on
 desktop exit intent.
 
+## Page order
+
+The page is deliberately homeowner-first; contractor and technical detail sits
+behind the homeowner journey rather than competing with it.
+
+1. Hero — inspiration, with **Request My Free Quote** as the primary CTA
+2. Design center — who BellaFina is, stated early, plus the four-item strip
+   (premium products, showroom displays, selection guidance, leading manufacturers)
+3. Gas fire pits / fire tables split sections — product inspiration
+4. Category grid — **Explore Products**
+5. Why BellaFina — homeowner benefits
+6. Three-step path — Explore Products → Request Your Free Quote → Visit the Design Center
+7. Design center band — **Visit**
+8. Spec table (technical) → FAQ → **For Trade** → service area → final CTA
+
+`Request My Free Quote` is the primary CTA throughout and opens the quote modal;
+secondary actions are Explore Products and Get Directions.
+
 ## Design
 
-Navy / gold / orange tokens, Georgia headings, sticky header, hero with a lead
-card, trust strip, split sections, category grid, homeowner/trade split, spec
-table, three-step process, FAQ, service area, showroom band, final CTA, footer.
+Brand tokens are taken from the live bellafinaoutdoors.com stylesheet so this page
+matches the current identity rather than the older purple wordmark it launched with:
+
+| Token | Value |
+| --- | --- |
+| `--paper` background | `#fdf5ec` |
+| `--navy` / `--ink` | `#0d1b2a` |
+| `--orange` accent | `#e5672a` |
+| `--gold` | `#c8a25b` |
+| `--cream` muted | `#fbebda` |
+| `--muted` body text | `#114a73` |
+| `--radius` | `10px` |
+
+Type follows the brand too: **Cormorant Garamond** for `h1`/`h2`, **Montserrat**
+for `h3`–`h6`, eyebrows and buttons, **Roboto** for body copy — loaded from Google
+Fonts with the previous Georgia / system stack kept as the fallback.
+
+Sticky header, hero with a lead card, trust strip, split sections with video,
+category grid, benefits grid, spec table, three-step path, FAQ, service area,
+design center band, trade block, final CTA, footer.
 
 The two split sections play vertical video loops (`#split-loop-video` for gas fire
 pits, `#split-loop-video-2` for fire tables), lazy-loaded by `assets/site.js` — they
