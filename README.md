@@ -44,7 +44,7 @@ The header nav is on-page anchors only:
 Every outbound link goes to **bellafinaoutdoors.com**, deep-linked to the matching
 page rather than the homepage, and carries UTM tags:
 
-- `utm_source=fire-bowls-lp`
+- `utm_source=fire-pits-lp`
 - `utm_medium=landing_page`
 - `utm_campaign=fire_pits`
 - `utm_content=<placement>` — e.g. `hero_shop_fire_pits`, `card_fire_tables`,
@@ -80,6 +80,11 @@ set `style="--hero-image:url('/assets/your-photo.webp')"`. Use a root-relative
 path there — a relative `url()` inside a custom property resolves against
 `site.css`, not the page.
 
+For the same reason the social preview (`og:image` / `twitter:image`) points at
+`assets/icon-512.png` and the Twitter card is `summary`, not
+`summary_large_image`. When real photography lands, point both at the wide
+photo and switch the card back to `summary_large_image`.
+
 ## Geographic coverage
 
 Rather than a thin page per city, the service-area section carries the whole
@@ -93,5 +98,6 @@ To extend the footprint, edit the `.areas` section — don't spawn new URLs.
 
 - Point `firepits.bellafinaoutdoors.com` at the Vercel project and confirm HTTPS
 - Add real photography (see **Design**)
+- Swap `og:image` / `twitter:image` to that photo and restore `summary_large_image`
 - Add this site as its own property in Search Console and submit `sitemap.xml` —
   subdomains are separate properties
