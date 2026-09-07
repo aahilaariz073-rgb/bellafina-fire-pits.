@@ -157,8 +157,11 @@
   .visual svg{width:40%;height:40%;opacity:.9;}
   .visual-fire{background:linear-gradient(160deg,#e07a2c,#c9631b 60%,#7a3b10);}
   .visual-water{background:linear-gradient(160deg,#3a5170,#152238 65%);}
-  .visual-video{background:#0e1929;}
-  .visual-video video{width:100%;height:100%;object-fit:cover;}
+  /* The loops are 9:16 phone video, so the video panels override the 4:3 box
+     rather than cropping ~70% of each frame away. Capped and centred so a tall
+     portrait clip does not tower over the copy beside it. */
+  .visual-video{background:#0e1929;aspect-ratio:9/16;width:100%;max-width:330px;max-height:560px;margin-inline:auto;}
+  .visual-video video{width:100%;height:100%;object-fit:cover;display:block;}
   @media (max-width:860px){ .split .wrap{grid-template-columns:1fr;} .split.reverse .wrap{direction:ltr;} }
 
   /* Categories */

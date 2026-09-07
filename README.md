@@ -15,6 +15,8 @@ assets/
   site.css      all styles
   site.js       lazy split-section video, UTM passthrough, hero lead form, quote popup
   logo.webp     brand logo and favicons
+  fire-pit-loop.mp4    split-section loop, gas fire pits
+  fire-table-loop.mp4  split-section loop, fire tables
 vercel.json     cleanUrls + no trailing slash
 robots.txt      allow-all + sitemap reference
 sitemap.xml     the single URL
@@ -72,7 +74,16 @@ Navy / gold / orange tokens, Georgia headings, sticky header, hero with a lead
 card, trust strip, split sections, category grid, homeowner/trade split, spec
 table, three-step process, FAQ, service area, showroom band, final CTA, footer.
 
-This site has no photography of its own yet, so the hero uses a brand gradient
+The two split sections play vertical video loops (`#split-loop-video` for gas fire
+pits, `#split-loop-video-2` for fire tables), lazy-loaded by `assets/site.js` — they
+are only fetched within 200px of the viewport and pause once scrolled past. Both are
+H.264/AAC, 720x1280, faststart, and muted so autoplay is allowed. Because the source
+is 9:16 phone video, `.visual-video` overrides the 4:3 panel rather than cropping most
+of each frame away. Under `prefers-reduced-motion` they do not autoplay and gain
+controls instead. Swapping a loop is a `src` change; keep the ids, they are what
+`site.js` looks for.
+
+The hero still has no photography of its own, so it uses a brand gradient
 (`.hero-fire` in `assets/site.css`) and the split sections use gradient panels with an
 SVG mark (`.visual-fire`, `.visual-water`). To use a real photo: drop it into
 `assets/`, swap the gradient class on the hero `<section>` for `hero-photo`, and

@@ -12,6 +12,13 @@
 
     function play(v){ var p = v.play(); if (p && p.catch) p.catch(function(){}); }
 
+    // Honour a reduced-motion preference: load the first frame so the panel is
+    // not an empty box, but never start the loop.
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      vids.forEach(function(v){ v.preload = 'metadata'; v.controls = true; });
+      return;
+    }
+
     if (!('IntersectionObserver' in window)) {
       vids.forEach(function(v){ v.preload = 'auto'; play(v); });
       return;
