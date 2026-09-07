@@ -17,6 +17,7 @@ assets/
   logo.webp     brand logo and favicons
   fire-pit-loop.mp4    split-section loop, gas fire pits
   fire-table-loop.mp4  split-section loop, fire tables
+  hero-fire-table.jpg  hero photograph (1500x1001)
 vercel.json     cleanUrls + no trailing slash
 robots.txt      allow-all + sitemap reference
 sitemap.xml     the single URL
@@ -83,18 +84,18 @@ of each frame away. Under `prefers-reduced-motion` they do not autoplay and gain
 controls instead. Swapping a loop is a `src` change; keep the ids, they are what
 `site.js` looks for.
 
-The hero still has no photography of its own, so it uses a brand gradient
-(`.hero-fire` in `assets/site.css`) and the split sections use gradient panels with an
-SVG mark (`.visual-fire`, `.visual-water`). To use a real photo: drop it into
-`assets/`, swap the gradient class on the hero `<section>` for `hero-photo`, and
-set `style="--hero-image:url('/assets/your-photo.webp')"`. Use a root-relative
-path there — a relative `url()` inside a custom property resolves against
-`site.css`, not the page.
+The hero carries `assets/hero-fire-table.jpg` — a lit linear gas fire table with
+seating around it. It is wired as `class="hero hero-photo"` plus
+`style="--hero-image:url('/assets/hero-fire-table.jpg')"` on the `<section>`. Use a
+root-relative path there — a relative `url()` inside a custom property resolves
+against `site.css`, not the page. The shared `.hero-photo` focal point of
+`center 60%` is overridden to `center 42%` for this particular shot; re-tune that
+if the photo is ever swapped. The image is also `rel="preload"`ed in the head,
+because it is the LCP element and a CSS background behind a custom property is
+invisible to the preload scanner.
 
-For the same reason the social preview (`og:image` / `twitter:image`) points at
-`assets/icon-512.png` and the Twitter card is `summary`, not
-`summary_large_image`. When real photography lands, point both at the wide
-photo and switch the card back to `summary_large_image`.
+The same photo backs the social preview (`og:image` / `twitter:image`) with a
+`summary_large_image` card.
 
 ## Geographic coverage
 
@@ -108,7 +109,6 @@ To extend the footprint, edit the `.areas` section — don't spawn new URLs.
 ## Before launch
 
 - Point `firepits.bellafinaoutdoors.com` at the Vercel project and confirm HTTPS
-- Add real photography (see **Design**)
-- Swap `og:image` / `twitter:image` to that photo and restore `summary_large_image`
+- Consider re-encoding `hero-fire-table.jpg` (357KB) to WebP/AVIF for a lighter LCP
 - Add this site as its own property in Search Console and submit `sitemap.xml` —
   subdomains are separate properties

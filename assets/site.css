@@ -287,6 +287,11 @@
      use the brand gradient instead of a background image. Drop a photo in
      assets/ and add a per-page background rule to switch one over. */
   .hero-plain{background:#0a101a;}
+  /* The hero photograph is a fire table shot at 3:2. The shared 60% focal point
+     drops the flames behind the body copy and fills the bottom third with bare
+     paving, so this site pulls the crop up to sit the lit burner clear of the
+     text and keep the string lights in frame. */
+  .hero-photo{background-position:center 42%;}
   .hero-fire{background:radial-gradient(90% 90% at 15% 105%,#c9631b 0%,#7a3b10 28%,#2a1b12 62%,#0d1522 100%);}
   .hero-kitchen{background:radial-gradient(95% 95% at 85% -10%,#43608a 0%,#283d5f 32%,#17253d 66%,#0b1220 100%);}
   .hero-oven{background:radial-gradient(85% 95% at 78% 10%,#c9631b 0%,#8a4a1a 26%,#38261a 62%,#0d1522 100%);}
