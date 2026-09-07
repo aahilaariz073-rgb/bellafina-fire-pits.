@@ -12,8 +12,7 @@
 
     function play(v){ var p = v.play(); if (p && p.catch) p.catch(function(){}); }
 
-    // Honour a reduced-motion preference: load the first frame so the panel is
-    // not an empty box, but never start the loop.
+    // Reduced motion: load a frame so the panel is not empty, but do not loop.
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       vids.forEach(function(v){ v.preload = 'metadata'; v.controls = true; });
       return;
@@ -240,4 +239,25 @@
     document.addEventListener('keydown', function(e){
       if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
     });
+  })();
+
+  /* Section videos: honour reduced-motion, and only play while on screen so a
+     visitor never streams both clips at once. */
+  (function(){
+    var vids = document.querySelectorAll('.visual-video video');
+    if (!vids.length) return;
+    var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (still) {
+      Array.prototype.forEach.call(vids, function(v){ v.removeAttribute('autoplay'); v.pause(); });
+      return;
+    }
+    if (!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        var v = e.target;
+        if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function(){}); }
+        else if (!v.paused) { v.pause(); }
+      });
+    }, { threshold: 0.25 });
+    Array.prototype.forEach.call(vids, function(v){ io.observe(v); });
   })();

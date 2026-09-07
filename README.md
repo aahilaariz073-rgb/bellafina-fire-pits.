@@ -12,13 +12,13 @@ covered by a separate site, so the two don't compete for the same searches.
 ```
 index.html      the whole page — content, nav, forms, JSON-LD
 assets/
-  site.css      all styles
+  site.css      all styles (shared pattern with the outdoor kitchens page)
   site.js       lazy split-section video, UTM passthrough, hero lead form, quote popup
-  logo.png      current brand wordmark (navy/gold crest)
-  favicon-*.png  brand crest icons
-  fire-pit-loop.mp4    split-section loop, gas fire pits
-  fire-table-loop.mp4  split-section loop, fire tables
-  hero-fire-table.jpg  hero photograph (1500x1001)
+  logo.webp     current flame-and-wave brand mark
+  brands/       partner logos shown in the design center strip
+  hero-fire-table.jpg       hero photograph
+  bellafina-design-center.webp  showroom band background
+  fire-pit-loop.mp4 / fire-table-loop.mp4  split-section loops
 vercel.json     cleanUrls + no trailing slash
 robots.txt      allow-all + sitemap reference
 sitemap.xml     the single URL
@@ -72,66 +72,61 @@ desktop exit intent.
 
 ## Page order
 
-The page is deliberately homeowner-first; contractor and technical detail sits
-behind the homeowner journey rather than competing with it.
+Matches the outdoor kitchens page pattern, homeowner-first:
 
-1. Hero — inspiration, with **Request My Free Quote** as the primary CTA
-2. Design center — who BellaFina is, stated early, plus the four-item strip
-   (premium products, showroom displays, selection guidance, leading manufacturers)
-3. Gas fire pits / fire tables split sections — product inspiration
-4. Category grid — **Explore Products**
-5. Why BellaFina — homeowner benefits
-6. Three-step path — Explore Products → Request Your Free Quote → Visit the Design Center
-7. Design center band — **Visit**
-8. Spec table (technical) → FAQ → **For Trade** → service area → final CTA
+hero → trust strip → design center → lede → product splits → product grid →
+how it works → why homeowners choose BellaFina → specs → FAQ → service areas →
+visit the design center → trade → final CTA
 
-`Request My Free Quote` is the primary CTA throughout and opens the quote modal;
-secondary actions are Explore Products and Get Directions.
+Contractor content sits in its own quiet `#trade` section just before the final
+CTA rather than competing with the homeowner journey; the trust strip is
+homeowner-facing for the same reason.
+
+`Request My Free Quote` is the only primary CTA. Every primary button uses
+`href="#top" data-quote-modal` and opens the quote modal — no off-site primary
+CTAs. The header carries one CTA, not a Shop ghost button plus a quote button,
+which overflowed the nav.
+
+Nav is seven items and fits alongside the CTA down to 1120px, below which the
+CTA label shortens to "Free Quote" (`.cta-long` / `.cta-short`).
 
 ## Design
 
-Brand tokens are taken from the live bellafinaoutdoors.com stylesheet so this page
-matches the current identity rather than the older purple wordmark it launched with:
+`assets/site.css` is the outdoor kitchens stylesheet, with this page's own
+additions appended at the end (question-led spec table, `.aud-lead`, the
+responsive header CTA label, and a three-up brand strip since this page carries
+six logos rather than eight).
+
+Brand tokens — no hardcoded hex outside `:root`:
 
 | Token | Value |
 | --- | --- |
-| `--paper` background | `#fdf5ec` |
 | `--navy` / `--ink` | `#0d1b2a` |
-| `--orange` accent | `#e5672a` |
+| `--navy-2` | `#114a73` |
+| `--blue` | `#3d7da8` |
+| `--blue-pale` | `#b8d0e3` |
 | `--gold` | `#c8a25b` |
-| `--cream` muted | `#fbebda` |
-| `--muted` body text | `#114a73` |
+| `--orange` | `#e5672a` |
+| `--cream` / `--paper` | `#fdf5ec` |
+| `--cream-2` | `#fbebda` |
 | `--radius` | `10px` |
 
-Type follows the brand too: **Cormorant Garamond** for `h1`/`h2`, **Montserrat**
-for `h3`–`h6`, eyebrows and buttons, **Roboto** for body copy — loaded from Google
-Fonts with the previous Georgia / system stack kept as the fallback.
+Cormorant Garamond for `h1`/`h2`, Montserrat for `h3`, nav, buttons and
+eyebrows, Roboto for body — via Google Fonts. Buttons are flat accent fill at
+10px radius, not pills or gradients.
 
-Sticky header, hero with a lead card, trust strip, split sections with video,
-category grid, benefits grid, spec table, three-step path, FAQ, service area,
-design center band, trade block, final CTA, footer.
+Two traps worth remembering: `.hero-photo` is restated *after* the `.hero-fire`
+theme rule because that rule uses the `background` shorthand and would otherwise
+reset the image; and a base `.cta-row{display:flex}` exists so a new section's
+buttons lay out without re-declaring it.
 
-The two split sections play vertical video loops (`#split-loop-video` for gas fire
-pits, `#split-loop-video-2` for fire tables), lazy-loaded by `assets/site.js` — they
-are only fetched within 200px of the viewport and pause once scrolled past. Both are
-H.264/AAC, 720x1280, faststart, and muted so autoplay is allowed. Because the source
-is 9:16 phone video, `.visual-video` overrides the 4:3 panel rather than cropping most
-of each frame away. Under `prefers-reduced-motion` they do not autoplay and gain
-controls instead. Swapping a loop is a `src` change; keep the ids, they are what
-`site.js` looks for.
+## Partner logos
 
-The hero carries `assets/hero-fire-table.jpg` — a lit linear gas fire table with
-seating around it. It is wired as `class="hero hero-photo"` plus
-`style="--hero-image:url('/assets/hero-fire-table.jpg')"` on the `<section>`. Use a
-root-relative path there — a relative `url()` inside a custom property resolves
-against `site.css`, not the page. The shared `.hero-photo` focal point of
-`center 60%` is overridden to `center 42%` for this particular shot; re-tune that
-if the photo is ever swapped. The image is also `rel="preload"`ed in the head,
-because it is the LCP element and a CSS background behind a custom property is
-invisible to the preload scanner.
-
-The same photo backs the social preview (`og:image` / `twitter:image`) with a
-`summary_large_image` card.
+`assets/brands/` holds trimmed webp, grayscale at rest and colour on hover. Only
+brands published on bellafinaoutdoors.com are used, and the subset is chosen for
+*this* page's topic: The Outdoor Plus for fire features, plus the stone and tile
+brands that clad built-in fire features (this page has a Veneer, Stone & Tile
+category). The kitchen page's eight are deliberately not reused verbatim.
 
 ## Geographic coverage
 
