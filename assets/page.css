@@ -8,7 +8,7 @@
      the 4:3 slot: the .visual is a plain block here, and the video inside
      carries the aspect ratio and a capped width so it stays centered. */
   .visual-photo{background:none;aspect-ratio:auto;display:block;overflow:visible;}
-  .visual-photo img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;
+  .visual-photo img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;
     border-radius:18px;background:#0e1929;box-shadow:0 18px 44px rgba(11,18,32,.22);}
   .visual-photo figcaption{margin:14px auto 0;text-align:center;
     color:var(--muted);font-size:.9rem;line-height:1.5;}
